@@ -39,14 +39,16 @@ async function processImage(srcPath, outDir, name) {
     withoutEnlargement: true,
   });
 
+  const thumb = base.clone().resize(THUMB_MAX, THUMB_MAX, {
+    fit: "inside",
+    withoutEnlargement: true,
+  });
+
   await Promise.all([
     full.clone().webp({ quality: WEBP_QUALITY }).toFile(join(outDir, `${name}.webp`)),
     full.clone().jpeg({ quality: JPEG_QUALITY, mozjpeg: true }).toFile(join(outDir, `${name}.jpg`)),
-    base
-      .clone()
-      .resize(THUMB_MAX, THUMB_MAX, { fit: "inside", withoutEnlargement: true })
-      .webp({ quality: WEBP_QUALITY })
-      .toFile(join(outDir, `${name}-thumb.webp`)),
+    thumb.clone().webp({ quality: WEBP_QUALITY }).toFile(join(outDir, `${name}-thumb.webp`)),
+    thumb.clone().jpeg({ quality: JPEG_QUALITY, mozjpeg: true }).toFile(join(outDir, `${name}-thumb.jpg`)),
   ]);
 }
 

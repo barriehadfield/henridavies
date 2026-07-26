@@ -5,7 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "optimize": "node scripts/optimize-images.mjs"
+    "optimize": "node scripts/optimize-images.mjs",
+    "build": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
     "sharp": "^0.33.5"
