@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "optimize": "node scripts/optimize-images.mjs",
-    "build": "node scripts/build-pages.mjs"
+    "build": "node scripts/build-pages.mjs",
+    "build:redesign": "node scripts/build-redesign.mjs"
   },
   "devDependencies": {
     "sharp": "^0.33.5"
