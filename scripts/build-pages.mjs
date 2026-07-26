@@ -38,7 +38,7 @@ async function tile(kind, item, altKind) {
   const { w, h } = await dims(kind, item.file);
   const base = `public/images/${kind}/${item.file}`;
   const title = item.title || "";
-  const alt = title ? `${title} — ${altKind} by Henri Davies` : `${altKind} by Henri Davies`;
+  const alt = title ? `${title}, ${altKind} by Henri Davies` : `${altKind} by Henri Davies`;
   const dataTitle = title ? ` data-title="${esc(title)}"` : "";
   return `        <a class="tile" href="${base}.jpg" data-full="${base}.webp"${dataTitle}>
           <picture>
@@ -60,7 +60,7 @@ function layout({ title, active, body }) {
   }).join("\n");
 
   const year = 2026;
-  const pageTitle = active === "index.html" ? "Henri Davies" : `${title} — Henri Davies`;
+  const pageTitle = active === "index.html" ? "Henri Davies" : `${title} · Henri Davies`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -68,7 +68,7 @@ function layout({ title, active, body }) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(pageTitle)}</title>
-  <meta name="description" content="Henri Davies — paintings and photography.">
+  <meta name="description" content="Henri Davies. Paintings and photography.">
   <link rel="icon" href="public/images/site/logo.jpg">
   <link rel="apple-touch-icon" href="public/images/site/logo.jpg">
   <link rel="stylesheet" href="css/style.css">
@@ -110,7 +110,7 @@ async function buildHome() {
   const g = await gallery("paintings", PAINTINGS, "painting");
   const body = `    <div class="page-head">
       <h1>Paintings &amp; Photography</h1>
-      <p>Self-taught painter working in oils — portraits, still life and abstracts — alongside a body of travel and landscape photography.</p>
+      <p>Self-taught painter working in oils: portraits, still life and abstracts, alongside a body of travel and landscape photography.</p>
     </div>
 ${g}`;
   return layout({ title: "Home", active: "index.html", body });
@@ -132,7 +132,7 @@ async function buildFashion() {
   const lead = FASHION[0];
   const { w: lw, h: lh } = await dims("fashion", lead.file);
   const leadBase = `public/images/fashion/${lead.file}`;
-  const leadTitle = "Henri Davies — press feature";
+  const leadTitle = "Henri Davies, press feature";
   const hero = `    <figure class="fashion-lead">
       <a class="tile" href="${leadBase}.jpg" data-full="${leadBase}.webp" data-title="${esc(leadTitle)}">
         <picture>
@@ -146,7 +146,7 @@ async function buildFashion() {
   const body = `    <div class="page-head">
       <p class="eyebrow">Feature</p>
       <h1>Fashion</h1>
-      <p>Henri Davies Fashion — a body of fashion and styling work, led by the press feature below.</p>
+      <p>Henri Davies Fashion. A body of fashion and styling work, led by the press feature below.</p>
     </div>
 ${hero}
 ${g}`;
@@ -166,7 +166,7 @@ async function buildForSale() {
         <a class="tile" href="${base}.jpg" data-full="${base}.webp" data-title="${esc(w.title)}">
           <picture>
             <source srcset="${base}-thumb.webp" type="image/webp">
-            <img src="${base}-thumb.jpg" alt="${esc(w.title)} — painting by Henri Davies" loading="lazy" width="${iw}" height="${ih}">
+            <img src="${base}-thumb.jpg" alt="${esc(w.title)}, painting by Henri Davies" loading="lazy" width="${iw}" height="${ih}">
           </picture>
         </a>
         <div>

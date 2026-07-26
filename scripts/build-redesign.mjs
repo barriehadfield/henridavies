@@ -40,7 +40,7 @@ async function tile(kind, item, altKind, eager) {
   const { w, h } = await dims(kind, item.file);
   const base = `public/images/${kind}/${item.file}`;
   const title = item.title || "";
-  const alt = title ? `${title} — ${altKind} by Henri Davies` : `${altKind} by Henri Davies`;
+  const alt = title ? `${title}, ${altKind} by Henri Davies` : `${altKind} by Henri Davies`;
   const dataTitle = title ? ` data-title="${esc(title)}"` : "";
   const cap = title ? `\n      <span class="cap">${esc(title)}</span>` : "";
   const load = eager ? "eager" : "lazy";
@@ -75,7 +75,7 @@ function layout({ title, active, main, home }) {
     const cls = n.cls ? ` class="${n.cls}"` : "";
     return `<a href="${n.href}"${cls}${cur}>${n.label}</a>`;
   }).join("\n        ");
-  const pageTitle = home ? "Henri Davies — Painter & Photographer" : `${title} — Henri Davies`;
+  const pageTitle = home ? "Henri Davies · Painter & Photographer" : `${title} · Henri Davies`;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -85,7 +85,7 @@ function layout({ title, active, main, home }) {
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#191a1d">
   <title>${esc(pageTitle)}</title>
-  <meta name="description" content="Henri Davies — paintings, photography and fashion.">
+  <meta name="description" content="Henri Davies. Paintings, photography and fashion.">
   <link rel="icon" href="public/images/site/logo.jpg">
   <link rel="apple-touch-icon" href="public/images/site/logo.jpg">
   <link rel="stylesheet" href="css/style.css">
@@ -116,7 +116,7 @@ ${main}
         <a href="${SOCIAL.instagram}" target="_blank" rel="noopener">Instagram</a>
         <a href="${SOCIAL.bluesky}" target="_blank" rel="noopener">Bluesky</a>
       </div>
-      <div class="cr">© 2026 Henri Davies — Painter, photographer &amp; designer</div>
+      <div class="cr">© 2026 Henri Davies · Painter, photographer &amp; designer</div>
     </div>
   </footer>
 
@@ -138,7 +138,7 @@ async function buildHome() {
       <div class="hero-copy">
         <p class="eyebrow">Painter · Photographer · Designer</p>
         <h1>Henri<br>Davies<span class="last">.</span></h1>
-        <p class="tag">Portraits in oil, travel photography, and a fashion archive — one body of work, made over a lifetime of looking.</p>
+        <p class="tag">Portraits in oil, travel photography, and a fashion archive. One body of work, made over a lifetime of looking.</p>
         <div class="hero-cta">
           <a class="btn primary" href="paintings.html">View the paintings</a>
           <a class="btn ghost" href="about.html">About Henri</a>
@@ -147,9 +147,9 @@ async function buildHome() {
       <figure class="hero-fig">
         <picture>
           <source srcset="public/images/paintings/suri-woman-with-calabashes.webp" type="image/webp">
-          <img src="public/images/paintings/suri-woman-with-calabashes.jpg" alt="Suri Woman with Calabashes — painting by Henri Davies" width="${heroDims.w}" height="${heroDims.h}" fetchpriority="high">
+          <img src="public/images/paintings/suri-woman-with-calabashes.jpg" alt="Suri Woman with Calabashes, painting by Henri Davies" width="${heroDims.w}" height="${heroDims.h}" fetchpriority="high">
         </picture>
-        <figcaption>Suri Woman with Calabashes — oil on canvas</figcaption>
+        <figcaption>Suri Woman with Calabashes, oil on canvas</figcaption>
       </figure>
     </section>
 
@@ -168,7 +168,7 @@ async function buildPaintings() {
       <div>
         <p class="eyebrow">Oil on canvas</p>
         <h1>Paintings</h1>
-        <p class="sub">Portraits, still life and abstracts — self-taught, over the last seven years.</p>
+        <p class="sub">Portraits, still life and abstracts, self-taught over the last seven years.</p>
       </div>
       <span class="count">${PAINTINGS.length} works</span>
     </div>
@@ -194,7 +194,7 @@ async function buildFashion() {
   const lead = FASHION[0];
   const { w, h } = await dims("fashion", lead.file);
   const leadBase = `public/images/fashion/${lead.file}`;
-  const leadTitle = "Henri Davies — press feature";
+  const leadTitle = "Henri Davies, press feature";
   const hero = `    <figure class="fashion-lead reveal">
       <p class="tag">Feature</p>
       <a class="tile" href="${leadBase}.jpg" data-full="${leadBase}.webp" data-title="${esc(leadTitle)}">
@@ -229,7 +229,7 @@ async function buildForSale() {
         <a class="tile" href="${base}.jpg" data-full="${base}.webp" data-title="${esc(w.title)}">
           <picture>
             <source srcset="${base}-thumb.webp" type="image/webp">
-            <img src="${base}-thumb.jpg" alt="${esc(w.title)} — painting by Henri Davies" loading="lazy" width="${iw}" height="${ih}">
+            <img src="${base}-thumb.jpg" alt="${esc(w.title)}, painting by Henri Davies" loading="lazy" width="${iw}" height="${ih}">
           </picture>
         </a>
         <div>
