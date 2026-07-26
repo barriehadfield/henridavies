@@ -1,19 +1,6 @@
 /* Henri Davies — redesign prototype: theme, mobile menu, full-screen swipe lightbox */
 (function () {
   "use strict";
-  var root = document.documentElement;
-
-  /* ---- Theme toggle ---- */
-  var themeBtn = document.querySelector(".theme-btn");
-  if (themeBtn) {
-    themeBtn.addEventListener("click", function () {
-      var dark = root.getAttribute("data-theme") === "dark"
-        || (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
-      root.setAttribute("data-theme", dark ? "light" : "dark");
-      try { localStorage.setItem("hd-theme", dark ? "light" : "dark"); } catch (e) {}
-    });
-  }
-
   /* ---- Mobile menu ---- */
   var menuBtn = document.querySelector(".menu-btn");
   var nav = document.querySelector(".nav");
