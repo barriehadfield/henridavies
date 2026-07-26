@@ -35,15 +35,22 @@ async function dims(kind, file) {
   return { w: m.width, h: m.height };
 }
 
+// full-size image dimensions — PhotoSwipe needs these to size the zoom correctly
+async function fullDims(kind, file) {
+  const m = await sharp(join(ROOT, "public", "images", kind, `${file}.jpg`)).metadata();
+  return { w: m.width, h: m.height };
+}
+
 async function tile(kind, item, altKind, eager) {
   const { w, h } = await dims(kind, item.file);
+  const f = await fullDims(kind, item.file);
   const base = `public/images/${kind}/${item.file}`;
   const title = item.title || "";
   const alt = title ? `${title}, ${altKind} by Henri Davies` : `${altKind} by Henri Davies`;
   const dataTitle = title ? ` data-title="${esc(title)}"` : "";
   const cap = title ? `\n      <span class="cap">${esc(title)}</span>` : "";
   const load = eager ? "eager" : "lazy";
-  return `    <a class="tile" href="${base}.jpg" data-full="${base}.webp"${dataTitle}>
+  return `    <a class="tile" href="${base}.jpg" data-pswp-width="${f.w}" data-pswp-height="${f.h}"${dataTitle}>
       <picture>
         <source srcset="${base}-thumb.webp" type="image/webp">
         <img src="${base}-thumb.jpg" alt="${esc(alt)}" loading="${load}" width="${w}" height="${h}">
@@ -87,6 +94,7 @@ function layout({ title, active, main, home }) {
   <meta name="description" content="Henri Davies. Paintings, photography and fashion.">
   <link rel="icon" href="public/images/site/logo.jpg">
   <link rel="apple-touch-icon" href="public/images/site/logo.jpg">
+  <link rel="stylesheet" href="js/vendor/photoswipe/photoswipe.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -119,7 +127,7 @@ ${main}
     </div>
   </footer>
 
-  <script src="js/site.js"></script>
+  <script type="module" src="js/site.js"></script>
 </body>
 </html>
 `;
@@ -192,11 +200,12 @@ ${g}`;
 async function buildFashion() {
   const lead = FASHION[0];
   const { w, h } = await dims("fashion", lead.file);
+  const lf = await fullDims("fashion", lead.file);
   const leadBase = `public/images/fashion/${lead.file}`;
   const leadTitle = "Henri Davies, press feature";
   const hero = `    <figure class="fashion-lead reveal">
       <p class="tag">Feature</p>
-      <a class="tile" href="${leadBase}.jpg" data-full="${leadBase}.webp" data-title="${esc(leadTitle)}">
+      <a class="tile" href="${leadBase}.jpg" data-pswp-width="${lf.w}" data-pswp-height="${lf.h}" data-title="${esc(leadTitle)}">
         <picture>
           <source srcset="${leadBase}.webp" type="image/webp">
           <img src="${leadBase}.jpg" alt="${esc(leadTitle)}" width="${w}" height="${h}">
@@ -221,11 +230,12 @@ async function buildForSale() {
   const works = [];
   for (const w of FOR_SALE) {
     const { w: iw, h: ih } = await dims("paintings", w.file);
+    const wf = await fullDims("paintings", w.file);
     const base = `public/images/paintings/${w.file}`;
     const badge = w.sold ? '<span class="badge">Sold</span>' : "";
     const price = w.sold ? `<p class="price"><s>${w.price}</s></p>` : `<p class="price">${w.price}</p>`;
     works.push(`      <article class="work">
-        <a class="tile" href="${base}.jpg" data-full="${base}.webp" data-title="${esc(w.title)}">
+        <a class="tile" href="${base}.jpg" data-pswp-width="${wf.w}" data-pswp-height="${wf.h}" data-title="${esc(w.title)}">
           <picture>
             <source srcset="${base}-thumb.webp" type="image/webp">
             <img src="${base}-thumb.jpg" alt="${esc(w.title)}, painting by Henri Davies" loading="lazy" width="${iw}" height="${ih}">

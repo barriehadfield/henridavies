@@ -90,9 +90,12 @@ Builds every page from a shared `layout()` + the data imported from `site-data.m
 - **One dark theme** — committed, no toggle. Palette + elevation are CSS custom
   properties at the top of `style.css`: `--accent` (coral), `--edge-top` / `--lift`
   drive the raised-image look. Change those tokens to retune globally.
-- **Lightbox** is a hand-rolled gesture engine (no scroll-snap): a transform-based
-  swipe carousel + pinch-zoom + free pan + double-tap zoom. Snap is disabled while
-  zoomed. Multitouch can't be driven in headless Chrome — test zoom/pan on a device.
+- **Lightbox is PhotoSwipe v5** (vendored at `js/vendor/photoswipe/`, no CDN).
+  `js/site.js` is an ES **module** (`<script type="module">`) that imports it and
+  inits on `main` / `a.tile`. Tiles need `data-pswp-width`/`data-pswp-height` (the
+  **full**-image dims — `fullDims()` in the generator reads them from `<file>.jpg`);
+  `data-title` becomes the caption. To update the library: `npm i -D photoswipe@x`
+  then re-copy `dist/{photoswipe.esm.js,photoswipe-lightbox.esm.js,photoswipe.css}`.
 - Mobile nav is a fixed full-height panel; it needs an explicit `height:100dvh`
   because the header's `backdrop-filter` makes it the panel's containing block.
 
