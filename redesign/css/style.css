@@ -13,9 +13,9 @@
   --ink-2: #b7b8bd;
   --muted: #84858c;
   --hair: #32343a;
-  --accent: #8791ff;    /* cobalt, lifted for charcoal */
-  --accent-ink: #a4acff;
-  --vermilion: #ff6f49;
+  --accent: #ff6f49;    /* coral — the site accent / CTA colour */
+  --accent-ink: #ff8a67; /* lighter coral for hover / pressed */
+  --vermilion: #ff6f49;  /* alias kept for the "Sold" badge */
 
   /* Elevation — one light source, above and slightly to the front.
      A lit top edge + a downward-cast shadow makes each surface sit "raised". */
@@ -96,7 +96,6 @@ h1, h2, h3 { margin: 0; font-weight: 640; letter-spacing: -0.03em; text-wrap: ba
 }
 .nav a:hover { color: var(--ink); }
 .nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
-.nav a.sale { color: var(--vermilion); }
 
 .hdr-tools { display: flex; align-items: center; gap: 0.6rem; }
 .menu-btn {
@@ -124,8 +123,8 @@ h1, h2, h3 { margin: 0; font-weight: 640; letter-spacing: -0.03em; text-wrap: ba
   font-size: 0.86rem; letter-spacing: 0.01em; padding: 0.7rem 1.15rem; border-radius: 100px;
   border: 1px solid var(--ink); color: var(--ink); transition: all 0.2s;
 }
-.btn.primary { background: var(--ink); color: var(--paper); }
-.btn.primary:hover { background: var(--accent); border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #201007; }
+.btn.primary:hover { background: var(--accent-ink); border-color: var(--accent-ink); }
 .btn.ghost:hover { border-color: var(--accent); color: var(--accent); }
 .hero-fig { position: relative; }
 .hero-fig img {

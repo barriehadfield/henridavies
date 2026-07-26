@@ -29,6 +29,8 @@ export const PAINTINGS = [
   { file: "mg_7267-3" },
   { file: "blue-boy", title: "Blue Boy" },
   { file: "barrie-portrait", title: "Barrie" },
+  { file: "man-green-eyes" },
+  { file: "woman-red-flowers" },
 ];
 
 export const PHOTOGRAPHY = [
