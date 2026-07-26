@@ -256,6 +256,10 @@ main { min-height: 60vh; }
 }
 
 /* ---------------- Lightbox (PhotoSwipe theming) ---------------- */
+/* Hide the sticky header while the lightbox is open — on mobile (seen on Chrome
+   Android) its backdrop-filter layer otherwise paints over the fixed overlay,
+   cutting off the top of the image and showing the burger. */
+html.pswp-open .hdr { visibility: hidden; }
 .pswp { --pswp-bg: #17181b; --pswp-icon-color: #e9e9e4; --pswp-icon-color-secondary: #17181b; }
 .pswp__bg { background: var(--pswp-bg); }
 .pswp-caption {

@@ -48,6 +48,15 @@ import PhotoSwipeLightbox from "./vendor/photoswipe/photoswipe-lightbox.esm.js";
     zoom: true,
   });
 
+  // Hide the sticky header while the lightbox is open. On mobile (seen on
+  // Chrome Android) a header with backdrop-filter is promoted to its own layer
+  // that paints OVER a fixed overlay regardless of z-index, so it covered the
+  // top of the image and showed the burger. visibility:hidden keeps layout
+  // (no reflow → the open/close zoom animation stays anchored to the thumbnail).
+  var root = document.documentElement;
+  lightbox.on("beforeOpen", function () { root.classList.add("pswp-open"); });
+  lightbox.on("destroy", function () { root.classList.remove("pswp-open"); });
+
   // Wall-label caption from each tile's data-title
   lightbox.on("uiRegister", function () {
     lightbox.pswp.ui.registerElement({
