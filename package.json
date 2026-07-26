@@ -7,7 +7,7 @@
   "scripts": {
     "optimize": "node scripts/optimize-images.mjs",
     "build": "node scripts/build-pages.mjs",
-    "build:redesign": "node scripts/build-redesign.mjs"
+    "dev": "python3 scripts/dev-serve.py 8000 ."
   },
   "devDependencies": {
     "sharp": "^0.33.5"
