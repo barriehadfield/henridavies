@@ -1,0 +1,13 @@
+{
+  "name": "henridavies",
+  "version": "1.0.0",
+  "description": "Henri Davies — static site (GitHub Pages)",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "optimize": "node scripts/optimize-images.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.33.5"
+  }
+}
