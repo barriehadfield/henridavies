@@ -9,6 +9,7 @@ GitHub Pages. Migrated from the old WordPress.com site at henridavies.com.
 index.html                  Home — paintings gallery
 paintings-for-sale.html     Works available to purchase
 photography.html            Photography gallery
+fashion.html                Fashion gallery
 about.html                  Biography
 css/style.css               Styles
 js/site.js                  Nav toggle + lightbox
@@ -19,7 +20,7 @@ source/reference/           Original page HTML captured from the old site
 CONTENT.md                  Content manifest (bios, prices, gallery order)
 
 scripts/optimize-images.mjs Generates public/ derivatives from source/
-scripts/build-pages.mjs     Generates the four HTML pages
+scripts/build-pages.mjs     Generates the HTML pages
 ```
 
 The site itself is plain HTML/CSS/JS with no runtime dependencies. The two scripts

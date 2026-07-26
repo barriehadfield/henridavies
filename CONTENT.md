@@ -27,6 +27,13 @@ Two works listed:
 ### Photography
 Gallery of 29 photographs. Images in `source/images/photography/`.
 
+### Fashion
+Gallery of 51 fashion / styling works (imported from the "Henri Davies Fashion"
+article). Images in `source/images/fashion/`, named `fashion-01`…`fashion-51`
+in the article's curated order — the first image (`fashion-01`) is the press
+article scan, which leads the section. Original article source archived at
+`source/reference/fashion-article.html`.
+
 ### About
 Portrait: `source/images/site/henri-portrait.jpg` (original `new-haircut-2.jpg`)
 

@@ -18,6 +18,7 @@ const NAV = [
   { href: "index.html", label: "Home" },
   { href: "paintings-for-sale.html", label: "Paintings For Sale" },
   { href: "photography.html", label: "Photography" },
+  { href: "fashion.html", label: "Fashion" },
   { href: "about.html", label: "About" },
 ];
 
@@ -78,6 +79,12 @@ const PHOTOGRAPHY = [
   { file: "20120131-es-trenc-beach-corr", title: "Es Trenc Beach" },
   { file: "cafe-greco", title: "Café Greco" },
 ];
+
+/* Fashion — the images are named fashion-01..fashion-51 in the curated
+   order taken from the "Henri Davies Fashion" article. */
+const FASHION = Array.from({ length: 51 }, (_, i) => ({
+  file: `fashion-${String(i + 1).padStart(2, "0")}`,
+}));
 
 const ABOUT_PARAS = [
   "All my life I have been interested in art and crafts. From a very young age I was painting and creating. Almost burning down the kitchen melting wax for my batik work or hobbling around in handmade leather sandals because I hadn’t stitched the soles on properly.",
@@ -206,6 +213,16 @@ ${g}`;
   return layout({ title: "Photography", active: "photography.html", body });
 }
 
+async function buildFashion() {
+  const g = await gallery("fashion", FASHION, "fashion image");
+  const body = `    <div class="page-head">
+      <h1>Fashion</h1>
+      <p>Henri Davies Fashion — a curated collection of fashion and styling work.</p>
+    </div>
+${g}`;
+  return layout({ title: "Fashion", active: "fashion.html", body });
+}
+
 async function buildForSale() {
   const works = [];
   for (const w of FOR_SALE) {
@@ -258,13 +275,14 @@ async function run() {
     ["index.html", await buildHome()],
     ["paintings-for-sale.html", await buildForSale()],
     ["photography.html", await buildPhotography()],
+    ["fashion.html", await buildFashion()],
     ["about.html", await buildAbout()],
   ];
   for (const [name, html] of pages) {
     await writeFile(join(ROOT, name), html, "utf-8");
     console.log(`  wrote ${name}`);
   }
-  console.log("\nDone. Built 4 pages.");
+  console.log(`\nDone. Built ${pages.length} pages.`);
 }
 
 run().catch((err) => {
