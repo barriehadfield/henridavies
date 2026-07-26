@@ -217,7 +217,7 @@ async function buildFashion() {
       <div>
         <p class="eyebrow">Feature</p>
         <h1>Fashion</h1>
-        <p class="sub">A fashion and styling archive, led by the original press feature.</p>
+        <p class="sub">Selection of mens and womans fashion.</p>
       </div>
       <span class="count">${FASHION.length} images</span>
     </div>
