@@ -19,10 +19,10 @@
 
   /* Elevation — one light source, above and slightly to the front.
      A lit top edge + a downward-cast shadow makes each surface sit "raised". */
-  --edge: rgba(255, 255, 255, 0.055);
-  --edge-top: rgba(255, 255, 255, 0.12);
-  --lift: 0 3px 7px -2px rgba(0, 0, 0, 0.55), 0 18px 38px -14px rgba(0, 0, 0, 0.66);
-  --lift-hi: 0 10px 20px -4px rgba(0, 0, 0, 0.6), 0 34px 62px -18px rgba(0, 0, 0, 0.74);
+  --edge: rgba(255, 255, 255, 0.08);
+  --edge-top: rgba(255, 255, 255, 0.20);
+  --lift: 0 8px 16px -4px rgba(0, 0, 0, 0.72), 0 30px 60px -14px rgba(0, 0, 0, 0.82);
+  --lift-hi: 0 18px 34px -6px rgba(0, 0, 0, 0.78), 0 54px 96px -22px rgba(0, 0, 0, 0.9);
   --shadow: var(--lift);
 
   --sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -30,7 +30,7 @@
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
 
   --maxw: 1360px;
-  --gap: 18px;
+  --gap: 22px;
 }
 
 /* Shared raised-surface treatment: lit top edge, downward shadow */
