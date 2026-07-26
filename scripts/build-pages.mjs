@@ -214,11 +214,28 @@ ${g}`;
 }
 
 async function buildFashion() {
-  const g = await gallery("fashion", FASHION, "fashion image");
+  // The first image in the curated order is the press-feature article — lead
+  // with it full-width as an editorial hero, then grid the rest of the works.
+  const lead = FASHION[0];
+  const { w: lw, h: lh } = await dims("fashion", lead.file);
+  const leadBase = `public/images/fashion/${lead.file}`;
+  const leadTitle = "Henri Davies — press feature";
+  const hero = `    <figure class="fashion-lead">
+      <a class="tile" href="${leadBase}.jpg" data-full="${leadBase}.webp" data-title="${esc(leadTitle)}">
+        <picture>
+          <source srcset="${leadBase}.webp" type="image/webp">
+          <img src="${leadBase}.jpg" alt="${esc(leadTitle)}" width="${lw}" height="${lh}">
+        </picture>
+      </a>
+    </figure>`;
+
+  const g = await gallery("fashion", FASHION.slice(1), "fashion image");
   const body = `    <div class="page-head">
+      <p class="eyebrow">Feature</p>
       <h1>Fashion</h1>
-      <p>Henri Davies Fashion — a curated collection of fashion and styling work.</p>
+      <p>Henri Davies Fashion — a body of fashion and styling work, led by the press feature below.</p>
     </div>
+${hero}
 ${g}`;
   return layout({ title: "Fashion", active: "fashion.html", body });
 }
