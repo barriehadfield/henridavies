@@ -8,14 +8,23 @@
  *
  * Regenerate with: npm run build
  */
-import { writeFile } from "node:fs/promises";
+import { writeFile, readFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 import sharp from "sharp";
 import { SOCIAL, PAINTINGS, PHOTOGRAPHY, FASHION, ABOUT_PARAS, FOR_SALE } from "./site-data.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = ROOT;
+
+// content-hashed asset versions so browsers/CDN always fetch fresh css/js when
+// they change (filenames stay stable, so without this old copies get cached).
+const ASSET = { css: "1", js: "1" };
+async function assetVersion(rel) {
+  try { return createHash("sha1").update(await readFile(join(ROOT, rel))).digest("hex").slice(0, 8); }
+  catch { return "1"; }
+}
 
 const NAV = [
   { href: "paintings.html", label: "Paintings" },
@@ -95,7 +104,7 @@ function layout({ title, active, main, home }) {
   <link rel="icon" href="public/images/site/logo.jpg">
   <link rel="apple-touch-icon" href="public/images/site/logo.jpg">
   <link rel="stylesheet" href="js/vendor/photoswipe/photoswipe.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=${ASSET.css}">
 </head>
 <body>
   <header class="hdr">
@@ -127,7 +136,7 @@ ${main}
     </div>
   </footer>
 
-  <script type="module" src="js/site.js"></script>
+  <script type="module" src="js/site.js?v=${ASSET.js}"></script>
 </body>
 </html>
 `;
@@ -281,6 +290,8 @@ ${paras}
 }
 
 async function run() {
+  ASSET.css = await assetVersion("css/style.css");
+  ASSET.js = await assetVersion("js/site.js");
   const pages = [
     ["index.html", await buildHome()],
     ["paintings.html", await buildPaintings()],
