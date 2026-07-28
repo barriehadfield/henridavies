@@ -113,6 +113,13 @@ Builds every page from a shared `layout()` + the data imported from `site-data.m
 
 ## Deploying
 
-GitHub Pages → Settings → Pages → Deploy from branch → `main` / root. Custom domain
-target is `henridavies.com` (not yet cut over). Commit the generated `*.html` and
-`public/` — they are what Pages serves.
+GitHub Pages → Settings → Pages → Deploy from branch → `main` / root. Live at the
+custom domain **`henridavies.com`** (cut over; `CNAME` + DNS point at Pages). Commit
+the generated `*.html` and `public/` — they are what Pages serves.
+
+**SEO** is generated in `layout()` from `SITE_URL` (`https://henridavies.com`): each
+page gets a canonical URL, per-page `<meta description>`, Open Graph + Twitter card
+tags with a representative absolute `og:image`, and the home page carries a
+`WebSite`/`Person` JSON-LD block whose `sameAs` are the `SOCIAL` links. `npm run
+build` also writes `sitemap.xml` (all real pages) and `robots.txt`. If the domain
+ever changes, update `SITE_URL` and rebuild.

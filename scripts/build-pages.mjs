@@ -18,6 +18,10 @@ import { SOCIAL, PAINTINGS, PHOTOGRAPHY, FASHION, INTERIORS, ABOUT_PARAS, FOR_SA
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = ROOT;
 
+// Live custom domain (GitHub Pages). Used for canonical + absolute OG/Twitter
+// image URLs and the sitemap. No trailing slash.
+const SITE_URL = "https://henridavies.com";
+
 // content-hashed asset versions so browsers/CDN always fetch fresh css/js when
 // they change (filenames stay stable, so without this old copies get cached).
 const ASSET = { css: "1", js: "1" };
@@ -85,13 +89,30 @@ async function roomCard(kind, file, label, count, href) {
       </a>`;
 }
 
-function layout({ title, active, main, home }) {
+const DEFAULT_DESC = "Henri Davies — painter, photographer and designer. Portraits in oil, travel photography, a fashion archive and interior schemes.";
+const DEFAULT_OG_IMAGE = "public/images/paintings/suri-woman-with-calabashes.jpg";
+
+function layout({ title, active, main, home, desc, image }) {
   const links = NAV.map((n) => {
     const cur = n.href === active ? ' aria-current="page"' : "";
     const cls = n.cls ? ` class="${n.cls}"` : "";
     return `<a href="${n.href}"${cls}${cur}>${n.label}</a>`;
   }).join("\n        ");
   const pageTitle = home ? "Henri Davies · Painter & Photographer" : `${title} · Henri Davies`;
+  const description = desc || DEFAULT_DESC;
+  const canonical = `${SITE_URL}/${active === "index.html" ? "" : active}`;
+  const ogImage = `${SITE_URL}/${image || DEFAULT_OG_IMAGE}`;
+
+  // WebSite + Person entity graph, on the home page only (one canonical source).
+  const jsonLd = home
+    ? `\n  <script type="application/ld+json">${JSON.stringify({
+        "@context": "https://schema.org",
+        "@graph": [
+          { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: "Henri Davies", description: DEFAULT_DESC, inLanguage: "en" },
+          { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Henri Davies", url: `${SITE_URL}/`, jobTitle: "Painter, photographer and designer", image: ogImage, sameAs: [SOCIAL.instagram, SOCIAL.bluesky] },
+        ],
+      })}</script>`
+    : "";
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -101,11 +122,22 @@ function layout({ title, active, main, home }) {
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#191a1d">
   <title>${esc(pageTitle)}</title>
-  <meta name="description" content="Henri Davies. Paintings, photography and fashion.">
+  <meta name="description" content="${esc(description)}">
+  <link rel="canonical" href="${esc(canonical)}">
+  <meta property="og:type" content="${home ? "website" : "article"}">
+  <meta property="og:site_name" content="Henri Davies">
+  <meta property="og:title" content="${esc(pageTitle)}">
+  <meta property="og:description" content="${esc(description)}">
+  <meta property="og:url" content="${esc(canonical)}">
+  <meta property="og:image" content="${esc(ogImage)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${esc(pageTitle)}">
+  <meta name="twitter:description" content="${esc(description)}">
+  <meta name="twitter:image" content="${esc(ogImage)}">
   <link rel="icon" href="public/images/site/logo.jpg">
   <link rel="apple-touch-icon" href="public/images/site/logo.jpg">
   <link rel="stylesheet" href="js/vendor/photoswipe/photoswipe.css">
-  <link rel="stylesheet" href="css/style.css?v=${ASSET.css}">
+  <link rel="stylesheet" href="css/style.css?v=${ASSET.css}">${jsonLd}
 </head>
 <body>
   <header class="hdr">
@@ -191,7 +223,11 @@ async function buildPaintings() {
       <span class="count">${PAINTINGS.length} works</span>
     </div>
 ${g}`;
-  return layout({ title: "Paintings", active: "paintings.html", main });
+  return layout({
+    title: "Paintings", active: "paintings.html", main,
+    desc: "Original oil paintings by Henri Davies — portraits, still life and abstracts, self-taught over the last seven years.",
+    image: "public/images/paintings/suri-woman-with-calabashes.jpg",
+  });
 }
 
 async function buildPhotography() {
@@ -205,7 +241,11 @@ async function buildPhotography() {
       <span class="count">${PHOTOGRAPHY.length} works</span>
     </div>
 ${g}`;
-  return layout({ title: "Photography", active: "photography.html", main });
+  return layout({
+    title: "Photography", active: "photography.html", main,
+    desc: "Travel and landscape photography by Henri Davies, from India, the Mediterranean and closer to home.",
+    image: "public/images/photography/20111212-horses-temple-corr-2.jpg",
+  });
 }
 
 async function buildFashion() {
@@ -234,7 +274,11 @@ async function buildFashion() {
     </div>
 ${hero}
 ${g}`;
-  return layout({ title: "Fashion", active: "fashion.html", main });
+  return layout({
+    title: "Fashion", active: "fashion.html", main,
+    desc: "The Henri Davies fashion archive — a selection of menswear and womenswear.",
+    image: "public/images/fashion/fashion-02.jpg",
+  });
 }
 
 async function buildInteriors() {
@@ -248,7 +292,11 @@ async function buildInteriors() {
       <span class="count">${INTERIORS.length} rooms</span>
     </div>
 ${g}`;
-  return layout({ title: "Interiors", active: "interiors.html", main });
+  return layout({
+    title: "Interiors", active: "interiors.html", main,
+    desc: "Interior schemes and styling by Henri Davies across homes in Norfolk, Mallorca and Blackheath.",
+    image: "public/images/interiors/norfolk-drawing-room.jpg",
+  });
 }
 
 async function buildForSale() {
@@ -285,7 +333,11 @@ async function buildForSale() {
     <div class="works">
 ${works.join("\n")}
     </div>`;
-  return layout({ title: "For Sale", active: "for-sale.html", main });
+  return layout({
+    title: "For Sale", active: "for-sale.html", main,
+    desc: "Original oil paintings by Henri Davies available to purchase.",
+    image: "public/images/paintings/screenshot-2025-01-05-at-14.16.41.jpg",
+  });
 }
 
 async function buildAbout() {
@@ -302,7 +354,11 @@ async function buildAbout() {
 ${paras}
       </div>
     </div>`;
-  return layout({ title: "About", active: "about.html", main });
+  return layout({
+    title: "About", active: "about.html", main,
+    desc: "About Henri Davies — a self-taught painter, photographer and designer, and the influences behind the work.",
+    image: "public/images/site/henri-portrait.jpg",
+  });
 }
 
 async function run() {
@@ -321,6 +377,27 @@ async function run() {
     await writeFile(join(OUT, name), html, "utf-8");
     console.log(`  wrote ${name}`);
   }
+
+  // sitemap.xml — every real page (the redirect stub is intentionally excluded).
+  const lastmod = new Date().toISOString().slice(0, 10);
+  const urls = pages.map(([name]) => `${SITE_URL}/${name === "index.html" ? "" : name}`);
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>${u}</loc><lastmod>${lastmod}</lastmod></url>`).join("\n")}
+</urlset>
+`;
+  await writeFile(join(OUT, "sitemap.xml"), sitemap, "utf-8");
+  console.log("  wrote sitemap.xml");
+
+  // robots.txt — allow everything, point crawlers at the sitemap.
+  const robots = `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`;
+  await writeFile(join(OUT, "robots.txt"), robots, "utf-8");
+  console.log("  wrote robots.txt");
+
   console.log(`\nDone. Built ${pages.length} pages.`);
 }
 
