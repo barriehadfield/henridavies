@@ -13,7 +13,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
 import sharp from "sharp";
-import { SOCIAL, PAINTINGS, PHOTOGRAPHY, FASHION, ABOUT_PARAS, FOR_SALE } from "./site-data.mjs";
+import { SOCIAL, PAINTINGS, PHOTOGRAPHY, FASHION, INTERIORS, ABOUT_PARAS, FOR_SALE } from "./site-data.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = ROOT;
@@ -30,6 +30,7 @@ const NAV = [
   { href: "paintings.html", label: "Paintings" },
   { href: "photography.html", label: "Photography" },
   { href: "fashion.html", label: "Fashion" },
+  { href: "interiors.html", label: "Interiors" },
   { href: "for-sale.html", label: "For Sale" },
   { href: "about.html", label: "About" },
 ];
@@ -149,6 +150,7 @@ async function buildHome() {
     roomCard("paintings", "orange-painting", "Paintings", "16 works", "paintings.html"),
     roomCard("photography", "20111212-horses-temple-corr-2", "Photography", "29 works", "photography.html"),
     roomCard("fashion", "fashion-02", "Fashion", "The archive", "fashion.html"),
+    roomCard("interiors", "norfolk-drawing-room", "Interiors", `${INTERIORS.length} rooms`, "interiors.html"),
   ]);
   const main = `    <section class="hero reveal">
       <div class="hero-copy">
@@ -235,6 +237,20 @@ ${g}`;
   return layout({ title: "Fashion", active: "fashion.html", main });
 }
 
+async function buildInteriors() {
+  const g = await gallery("interiors", INTERIORS, "interior");
+  const main = `    <div class="page-intro reveal">
+      <div>
+        <p class="eyebrow">Interiors</p>
+        <h1>Interiors</h1>
+        <p class="sub">Interior schemes and styling across homes in Norfolk, Mallorca and Blackheath.</p>
+      </div>
+      <span class="count">${INTERIORS.length} rooms</span>
+    </div>
+${g}`;
+  return layout({ title: "Interiors", active: "interiors.html", main });
+}
+
 async function buildForSale() {
   const works = [];
   for (const w of FOR_SALE) {
@@ -297,6 +313,7 @@ async function run() {
     ["paintings.html", await buildPaintings()],
     ["photography.html", await buildPhotography()],
     ["fashion.html", await buildFashion()],
+    ["interiors.html", await buildInteriors()],
     ["for-sale.html", await buildForSale()],
     ["about.html", await buildAbout()],
   ];

@@ -71,6 +71,30 @@ export const FASHION = Array.from({ length: 51 }, (_, i) => ({
   file: `fashion-${String(i + 1).padStart(2, "0")}`,
 }));
 
+/* Interiors — imported from the old Squarespace "Interiors" portfolio, in the
+   same running order (Norfolk, Mallorca, Blackheath). Ceramics by Jono Pandolfi;
+   the middle (Aro Ha) images noted on the original page. */
+export const INTERIORS = [
+  { file: "norfolk-drawing-room", title: "Norfolk Drawing Room" },
+  { file: "norfolk-drawing-room-garden", title: "Norfolk Drawing Room, Garden View" },
+  { file: "norfolk-drawing-room-fireplace", title: "Norfolk Drawing Room Fireplace" },
+  { file: "norfolk-library", title: "Norfolk Library" },
+  { file: "norfolk-breakfast-room", title: "Norfolk Breakfast Room" },
+  { file: "mallorca-sitting-dining-room", title: "Mallorca Sitting / Dining Room" },
+  { file: "mallorca-hallway", title: "Mallorca Hallway" },
+  { file: "mallorca-kitchen", title: "Mallorca Kitchen" },
+  { file: "mallorca-pool-bathroom", title: "Mallorca Pool Bathroom" },
+  { file: "mallorca-guest-bathroom", title: "Mallorca Guest Bathroom" },
+  { file: "mallorca-pool", title: "Mallorca Pool" },
+  { file: "mallorca-poolhouse", title: "Mallorca Poolhouse" },
+  { file: "blackheath-dining-room", title: "Blackheath Dining Room" },
+  { file: "blackheath-kitchen", title: "Blackheath Kitchen" },
+  { file: "blackheath-kitchen-2", title: "Blackheath Kitchen" },
+  { file: "blackheath-dining-room-panelling", title: "Blackheath Dining Room Panelling" },
+  { file: "blackheath-bedroom", title: "Blackheath Bedroom" },
+  { file: "blackheath-outdoor-bench", title: "Blackheath Outdoor Bench" },
+];
+
 export const ABOUT_PARAS = [
   "Art has run through my whole life. As a child I was forever painting and making, nearly burning down the kitchen melting wax for my batik, or hobbling about in handmade leather sandals whose soles I’d never quite stitched on properly.",
   "That restlessness took me to a top fashion school, part of an electric art college buzzing with artists, photographers, textile and jewellery designers. Straight out of training I struck out on my own with my own label, and it took off fast. Those early successes taught me to trust my eye and back my instincts, and every one of those influences still shapes the work I make today.",

@@ -6,7 +6,7 @@ All original-resolution assets are in `source/images/`.
 ## Site meta
 - **Title:** Henri Davies
 - **Logo / favicon:** `source/images/site/logo.jpg` (original `cropped-hd2.jpg`)
-- **Navigation:** Home · Paintings For Sale · Photography · About
+- **Navigation:** Home · Paintings · Photography · Fashion · Interiors · For Sale · About
 
 ## Social links
 - Instagram: https://www.instagram.com/henridaviesdesign
@@ -33,6 +33,13 @@ article). Images in `source/images/fashion/`, named `fashion-01`…`fashion-51`
 in the article's curated order — the first image (`fashion-01`) is the press
 article scan, which leads the section. Original article source archived at
 `source/reference/fashion-article.html`.
+
+### Interiors
+Gallery of 18 interior schemes (imported from the old Squarespace "Interiors"
+portfolio at `/portfolio/interiors-w2aw6`). Images in `source/images/interiors/`,
+in the original running order (Norfolk, Mallorca, Blackheath). Original note from
+that page: "Ceramics by Jono Pandolfi | middle images shot at Aro Ha". Canonical
+order + titles live in `scripts/site-data.mjs` → `INTERIORS`.
 
 ### About
 Portrait: `source/images/site/henri-portrait.jpg` (original `new-haircut-2.jpg`)
@@ -97,6 +104,26 @@ Body text (canonical copy lives in `scripts/site-data.mjs` → `ABOUT_PARAS`):
 27. mg_1213_13931.jpg
 28. 20120131-es-trenc-beach-corr.jpg
 29. cafe-greco.jpg
+
+### Interiors
+1. norfolk-drawing-room.jpg
+2. norfolk-drawing-room-garden.jpg
+3. norfolk-drawing-room-fireplace.jpg
+4. norfolk-library.jpg
+5. norfolk-breakfast-room.jpg
+6. mallorca-sitting-dining-room.jpg
+7. mallorca-hallway.jpg
+8. mallorca-kitchen.jpg
+9. mallorca-pool-bathroom.jpg
+10. mallorca-guest-bathroom.jpg
+11. mallorca-pool.jpg
+12. mallorca-poolhouse.jpg
+13. blackheath-dining-room.jpg
+14. blackheath-kitchen.jpg
+15. blackheath-kitchen-2.jpg
+16. blackheath-dining-room-panelling.jpg
+17. blackheath-bedroom.jpg
+18. blackheath-outdoor-bench.jpg
 
 ## Notes for the rebuild
 - Original site was WordPress.com. New site is a static GitHub Pages site from this repo.
