@@ -123,3 +123,10 @@ tags with a representative absolute `og:image`, and the home page carries a
 `WebSite`/`Person` JSON-LD block whose `sameAs` are the `SOCIAL` links. `npm run
 build` also writes `sitemap.xml` (all real pages) and `robots.txt`. If the domain
 ever changes, update `SITE_URL` and rebuild.
+
+The **share card** (`DEFAULT_OG_IMAGE`, used for the home page + any page with no
+section image of its own) is a dedicated 1200×630 image. Its design source is
+`source/og-card.html` (committed, system-font stacks matching `style.css`); it is
+rendered to `public/images/site/og-card.jpg` with headless Chrome — see the
+comment at the top of that HTML file for the exact command. It is **not** produced
+by `npm run optimize`; re-render it by hand only if the card design changes.

@@ -90,7 +90,9 @@ async function roomCard(kind, file, label, count, href) {
 }
 
 const DEFAULT_DESC = "Henri Davies — painter, photographer and designer. Portraits in oil, travel photography, a fashion archive and interior schemes.";
-const DEFAULT_OG_IMAGE = "public/images/paintings/suri-woman-with-calabashes.jpg";
+// Dedicated 1200x630 branded share card (source: source/og-card.html). Used for
+// the home page and any page without its own representative image.
+const DEFAULT_OG_IMAGE = "public/images/site/og-card.jpg";
 
 function layout({ title, active, main, home, desc, image }) {
   const links = NAV.map((n) => {
@@ -109,7 +111,7 @@ function layout({ title, active, main, home, desc, image }) {
         "@context": "https://schema.org",
         "@graph": [
           { "@type": "WebSite", "@id": `${SITE_URL}/#website`, url: `${SITE_URL}/`, name: "Henri Davies", description: DEFAULT_DESC, inLanguage: "en" },
-          { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Henri Davies", url: `${SITE_URL}/`, jobTitle: "Painter, photographer and designer", image: ogImage, sameAs: [SOCIAL.instagram, SOCIAL.bluesky] },
+          { "@type": "Person", "@id": `${SITE_URL}/#person`, name: "Henri Davies", url: `${SITE_URL}/`, jobTitle: "Painter, photographer and designer", image: `${SITE_URL}/public/images/site/henri-portrait.jpg`, sameAs: [SOCIAL.instagram, SOCIAL.bluesky] },
         ],
       })}</script>`
     : "";
